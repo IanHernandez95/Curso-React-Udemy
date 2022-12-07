@@ -23,11 +23,11 @@ export const LoginPage = () => {
 
     const { email, password, onInputChange, formState } = useForm(formData)
 
-    const isAuthenticated = useMemo( () => status === 'cheking', [status] )
+    const isAuthenticating = useMemo( () => status === 'cheking', [status] )
 
     const onSubmit = (event) => {
         event.preventDefault();
-        dispatch( startLoginWithEmailPassword(formState) );
+        dispatch( startLoginWithEmailPassword({ email, password }) );
     }
 
     const onGoogleSignIn = () => {;
@@ -37,7 +37,11 @@ export const LoginPage = () => {
     return (
         <AuthLayout title='Login'>
             
-            <form onSubmit={ onSubmit } className="animate__animated animate__fadeIn animate__faster">
+            <form 
+                aria-label='submit-form'
+                onSubmit={ onSubmit } 
+                className="animate__animated animate__fadeIn animate__faster"
+                >
                     <Grid container>
                         <Grid item xs={ 12 } sx={{ mt: 2}}>
                             <TextField 
@@ -55,7 +59,10 @@ export const LoginPage = () => {
                                 label='Contraseña' 
                                 type='password' 
                                 placeholder='Contraseña'
-                                fullWidth 
+                                fullWidth
+                                inputProps={{
+                                    'data-testid': 'password'
+                                }}
                                 name='password' 
                                 value={ password }
                                 onChange={ onInputChange } 
@@ -73,7 +80,7 @@ export const LoginPage = () => {
                     <Grid container spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
                         <Grid item xs={ 12 } sm={ 6 } >
                             <Button
-                                disabled={ isAuthenticated }
+                                disabled={ isAuthenticating }
                                 type='submit'  
                                 variant="contained" 
                                 fullWidth
@@ -83,9 +90,10 @@ export const LoginPage = () => {
                         </Grid>
                         <Grid item xs={ 12 } sm={ 6 } >
                             <Button 
-                                disabled={ isAuthenticated }
+                                disabled={ isAuthenticating }
                                 variant="contained" 
                                 fullWidth
+                                aria-label='google-btn'
                                 onClick={ onGoogleSignIn }
                             >
                                 <Google/>
