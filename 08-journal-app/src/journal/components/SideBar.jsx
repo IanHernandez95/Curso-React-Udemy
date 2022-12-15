@@ -1,9 +1,8 @@
-import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
-import { TurnedInNot } from '@mui/icons-material';
+import { Box, Divider, Drawer, List, Toolbar, Typography } from '@mui/material'
 import { useSelector } from 'react-redux';
 import { SideBarItem } from './';
 
-export const SideBar = ({ drawerWidth = 240 }) => {
+export const SideBar = ({ drawerWidth}) => {
 
     const { displayName } = useSelector( state => state.auth );
     const { notes } = useSelector( state => state.journal );
