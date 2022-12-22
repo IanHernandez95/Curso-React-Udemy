@@ -1,4 +1,4 @@
-const { response, json } =  require('express');
+const { response } =  require('express');
 const jwt = require('jsonwebtoken')
 
 const validaJWT = ( req, res = response, next ) => {
